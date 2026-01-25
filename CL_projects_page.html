@@ -2,39 +2,32 @@
 <html>
 <head>
     <script>
-        let url = ["YOUR SHEETY URL HERE"];
+        let url = "https://api.sheety.co/b2654d8096dc9e038f05f093d689f598/2026CareerLaunchGoogleSiteInfo/links";
 
         const makeCard = (group) => {
             let cardHtml = `<div class="card">`;
-            let img_src = group.cover_img?.includes("https://")
-            ? group.cover_img
+            let img_src = group.coverImg?.includes("https://")
+            ? group.coverImg
             : "https://i.imgur.com/cgAzUYE.png";
 
-            if (group.devpost_link?.includes("https://")) {
+            if (group.devpostLink?.includes("https://")) {
             cardHtml += `
-                <a href="${group.devpost_link}" target="_blank" rel="noopener noreferrer">
-                <img class="devpost-card-image" src="${img_src}">
+                <a href="${group.devpostLink}" target="_blank" rel="noopener noreferrer">
+                <img class="card-image" src="${img_src}">
                 </a>
             `;
             } else {
             cardHtml += `
-                <img class="devpost-card-image" src="${img_src}">
+                <img class="card-image" src="${img_src}">
             `;
             }
-            cardHtml += `<h1 class="card-header">${group.members.join(", ")}</h1>`;
-            cardHtml += `<p class="project-name">${group.project_name}</p>`; 
+            cardHtml += `<p class="project-name">${group.projectName}</p>`; 
             cardHtml += `<div class="card-info">`;
             cardHtml += `<div class="info-left">
-                <p class="major"><span class="is-bold">Team Number: </span> ${group.team_num}</p>
-                <p class="year"><span class="is-bold">Member Names: </span> ${group.members.join(", ")}</p>
+                <p class="major"><span class="is-bold">Team Number: </span> ${group.teamNum}</p>
+                <p class="year"><span class="is-bold">Member Names: </span> ${group.members}</p>
             </div>
             <div class="buffer"></div>`;
-            <!-- if (participant?.liUrl?.includes('https:')) {
-                cardHtml += `<a href="${participant.liUrl}" target="_blank" rel="noopener noreferrer" class="li-logo">
-                    <img src="https://cdn-icons-png.freepik.com/256/15527/15527622.png?semt=ais_hybrid" 
-                    alt="LinkedIn Profile" class="LInBox" style="width: 32px; height: 32px;" width="32" height="32">
-                </a>`;
-            } -->
             cardHtml += "</div></div>";
             return cardHtml;
         };
@@ -46,7 +39,8 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                return data.sheet1 || [];
+                console.log(data);
+                return data.links || [];
             } catch (error) {
                 console.error(error);
             }
@@ -57,11 +51,11 @@
 
             switch (sortStyle) {
                 case "team-asc":
-                    return [...group].sort((g1, g2) => g1.team_num - g2.team_num);
+                    return [...group].sort((g1, g2) => g1.teamNum - g2.teamNum);
                 case "team-desc":
-                    return [...group].sort((g1, g2) => g2.team_num - g1.team_num);
+                    return [...group].sort((g1, g2) => g2.teamNum - g1.teamNum);
                 case "project":
-                    return [...group].sort((g1, g2) => g1.project_name.localeCompare(g2.project_name));
+                    return [...group].sort((g1, g2) => g1.projectName.localeCompare(g2.projectName));
                 default:
                     return group;
             }
@@ -196,7 +190,7 @@
 
         .card-image {
             width: 100%;
-            height: 20rem;
+            height: auto;
             border-radius: .3rem;
             object-fit: cover;
             object-position: center;
