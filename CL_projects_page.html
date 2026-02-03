@@ -2,7 +2,7 @@
 <html>
 <head>
     <script>
-        let url = "https://api.sheety.co/b2654d8096dc9e038f05f093d689f598/2026CareerLaunchGoogleSiteInfo/links";
+        let url = "https://api.sheety.co/b2654d8096dc9e038f05f093d689f598/2026CareerLaunchGoogleSiteInfo/projects";
 
         const makeCard = (group) => {
             let cardHtml = `<div class="card">`;
@@ -40,7 +40,7 @@
                 }
                 const data = await response.json();
                 console.log(data);
-                return data.links || [];
+                return data.projects || [];
             } catch (error) {
                 console.error(error);
             }
