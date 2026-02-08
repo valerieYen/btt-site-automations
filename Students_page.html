@@ -2,7 +2,7 @@
 <html>
 <head>
     <script>
-        let url = ["YOUR SHEETY URL HERE"];
+        let url = ["YOUR SHEETY URL HERE; remove brackets but keep the quotations"];
 
         const makeCard = (participant) => {
             let cardHtml = `<div class="card">`;
@@ -35,7 +35,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                return data.sheet1 || [];
+                return data.participants || [];
             } catch (error) {
                 console.error(error);
             }

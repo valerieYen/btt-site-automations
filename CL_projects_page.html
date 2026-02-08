@@ -2,7 +2,7 @@
 <html>
 <head>
     <script>
-        let url = "https://api.sheety.co/b2654d8096dc9e038f05f093d689f598/2026CareerLaunchGoogleSiteInfo/projects";
+        let url = ["YOUR SHEETY URL HERE; remove brackets but keep the quotations"];
 
         const makeCard = (group) => {
             let cardHtml = `<div class="card">`;
@@ -21,7 +21,7 @@
                 <img class="card-image" src="${img_src}">
             `;
             }
-            cardHtml += `<p class="project-name">${group.projectName}</p>`; 
+            cardHtml += `<p class="card-header">${group.projectName}</p>`; 
             cardHtml += `<div class="card-info">`;
             cardHtml += `<div class="info-left">
                 <p class="major"><span class="is-bold">Team Number: </span> ${group.teamNum}</p>
@@ -208,8 +208,9 @@
 <body>
     <div class="filter-bar">
         <select name="sort-select" id="sort-select">
-            <option value="team-asc">Sort by Team Number (1 → 22)</option>
-            <option value="team-desc">Sort by Team Number (22 → 1)</option>
+            <!-- update Max Team Number. {ie. (1 -> max) and (max -> 1)}-->
+            <option value="team-asc">Sort by Team Number (1 → 7)</option>
+            <option value="team-desc">Sort by Team Number (7 → 1)</option>
             <option value="project">Sort by Project Name</option>
         </select>
     </div>
