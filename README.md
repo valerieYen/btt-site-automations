@@ -57,7 +57,7 @@ This guide will help you set up a dynamic profile card display on your Google Si
   2. Access your existing projects
   3. Click the Refresh button
   4. Test the website page
-- Note: Major changes can lead to bugs that will require you to update the embedded code as well [see section 5] 
+- Note: Major changes can lead to bugs that will require you to update the embedded code as well [see section 5](### 5. Updating the Code for Google Sites)
     
 ### 5. Updating the Code for Google Sites
 - Highly recommended to use VSCode or another IDE for any code updates
@@ -68,9 +68,11 @@ This guide will help you set up a dynamic profile card display on your Google Si
   3. `git commit -m "insert informative message here"` to save changes to the local repository
   4. `git push` to send changes to the remote repository
 - In the Google Site:
-  1. Create a new embedded block and add the updated code [see section 3]
+  1. Create a new embedded block and add the updated code [see section 3](### 3. Add the Code to Google Sites)
   2. Delete the old embedded block
 - Note: Google Sites' embedded feature reacts negatively to any updates. It's easier to make a new block.
+
+
 
 ## Troubleshooting
 - If cards don't appear, check your browser console for errors
@@ -80,6 +82,8 @@ This guide will help you set up a dynamic profile card display on your Google Si
 - Check that column names in your sheet exactly match the ones used in the code
   - Verify this by using a "console.log()" on the json returned from Sheety to verify object attribute names
 
+
+
 ## Participant Page Features
 - Responsive card layout
 - Sort participants by:
@@ -87,6 +91,8 @@ This guide will help you set up a dynamic profile card display on your Google Si
   - Team number
   - Year (ascending and descending)
 - Automatic fallback image for missing profile photos
+
+
 
 ## Career Launch Project Page Features
 - Responsive card layout
