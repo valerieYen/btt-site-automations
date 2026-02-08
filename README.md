@@ -1,10 +1,26 @@
 # Google Sites Profile Card Display
 This guide will help you set up a dynamic profile card display on your Google Site. The display shows participant cards with photos, names, team numbers, and other information pulled from a Google Sheet.
 
+
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+  - [1. Prepare Your Google Sheet](#1-prepare-your-google-sheet)
+  - [2. Set Up Sheety](#2-set-up-sheety)
+  - [3. Add the Code to Google Sites](#3-add-the-code-to-google-sites)
+  - [4. Updating the Google Sheet](#4-updating-the-google-sheet)
+  - [5. Updating the Code for Google Sites](#5-updating-the-code-for-google-sites)
+- [Troubleshooting](#troubleshooting)
+- [Participant Page Features](#participant-page-features)
+- [Career Launch Project Page Features](#career-launch-project-page-features)
+- [Notes](#notes)
+
+  
 ## Prerequisites
 - A Google Site where you want to display the cards
 - A Google Sheet containing participant information
 - Basic familiarity with Google Sites and Google Sheets
+
 
 ## Setup Instructions
 
@@ -57,7 +73,7 @@ This guide will help you set up a dynamic profile card display on your Google Si
   2. Access your existing projects
   3. Click the Refresh button
   4. Test the website page
-- Note: Major changes can lead to bugs that will require you to update the embedded code as well [see section 5](### 5. Updating the Code for Google Sites)
+- Note: Major changes can lead to bugs that will require you to update the embedded code as well [see section 5](#5-updating-the-code-for-google-sites)
     
 ### 5. Updating the Code for Google Sites
 - Highly recommended to use VSCode or another IDE for any code updates
@@ -68,7 +84,7 @@ This guide will help you set up a dynamic profile card display on your Google Si
   3. `git commit -m "insert informative message here"` to save changes to the local repository
   4. `git push` to send changes to the remote repository
 - In the Google Site:
-  1. Create a new embedded block and add the updated code [see section 3](### 3. Add the Code to Google Sites)
+  1. Create a new embedded block and add the updated code [see section 3](#3-add-the-code-to-google-sites)
   2. Delete the old embedded block
 - Note: Google Sites' embedded feature reacts negatively to any updates. It's easier to make a new block.
 
