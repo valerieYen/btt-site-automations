@@ -4,35 +4,40 @@
     <script>
         let url = ["YOUR SHEETY URL HERE; remove brackets but keep the quotations"];
 
-        const makeCard = (participant) => {
+        const makeCard = (group) => {
             let cardHtml = `<div class="card">`;
-            let img_src = participant.hsUrl?.includes("https://") 
-                ? participant.hsUrl 
-                : "https://i.imgur.com/cgAzUYE.png";
-            // img
-            cardHtml += `<img class="card-image" src="${img_src}">`;
-            // Name
-            cardHtml += `<h1 class="card-header">${participant.firstName} ${participant.lastName}</h1>`;
-            // cardHtml += `<h1 class="card-header">${participant.firstName} ${participant.lastName} - Team ${participant.groupNumber}</h1>`;
+            let img_src = group.coverImg?.includes("https://")
+            ? group.coverImg
+            : "https://i.imgur.com/cgAzUYE.png";
+
+             cardHtml += `
+                <img class="card-image" src="${img_src}">
+            `;
+            
+            cardHtml += `<p class="card-header">${group.projectName}</p>`; 
             cardHtml += `<div class="card-info">`;
-            // Major & Year
             cardHtml += `<div class="info-left">
-                <p class="major"><span class="is-bold">Major: </span> ${participant.major || 'Not specified'}</p>
-                <p class="year"><span class="is-bold">Year: </span> ${participant.year || 'Not specified'}</p>
+                <p class="major"><span class="is-bold">Team Number: </span> ${group.teamNum}</p>
+                <p class="year"><span class="is-bold">Member Names: </span> ${group.members}</p>
             </div>
             <div class="buffer"></div>`;
-            //LinkedIn
-            if (participant?.liUrl?.includes('https:')) {
-                cardHtml += `<a href="${participant.liUrl}" target="_blank" rel="noopener noreferrer" class="li-logo">
-                    <img src="https://cdn-icons-png.freepik.com/256/15527/15527622.png?semt=ais_hybrid" 
-                    alt="LinkedIn Profile" class="LInBox" style="width: 32px; height: 32px;" width="32" height="32">
-                </a>`;
+            cardHtml += `</div>`;
+
+            if (group.devpostLink?.includes("https://")) {
+                cardHtml += `
+                    <p class="project-link" style="text-align:center; margin-top:10px;">
+                        <a href="${group.devpostLink}" target="_blank" rel="noopener noreferrer">
+                            Click here to view ${group.projectName} project page
+                        </a>
+                    </p>
+                `;
             }
-            cardHtml += "</div></div>";
+
+            cardHtml += `</div>`;
             return cardHtml;
         };
 
-        async function getParticipants() {
+        async function getGroups() {
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -40,58 +45,47 @@
                 }
                 const data = await response.json();
                 console.log(data);
-                return data.participants || [];
+                return data.projects || [];
             } catch (error) {
                 console.error(error);
             }
         }
 
-        function sortParticipants(participants) {
+        function sortGroups(group) {
             const sortStyle = document.getElementById("sort-select").value;
-            const classes = ["Freshman", "Sophomore", "Junior", "Senior"];
-            
+
             switch (sortStyle) {
-                //case "team":
-                //    return [...participants].sort((p1, p2) => p1.groupNumber - p2.groupNumber);
-                case "name":
-                    return [...participants].sort((p1, p2) => p1.firstName.localeCompare(p2.firstName));
-                case "year-asc":
-                    return [...participants].sort((p1, p2) => {
-                        const yearA = classes.indexOf(p1.year);
-                        const yearB = classes.indexOf(p2.year);
-                        return yearA - yearB;
-                    });
-                case "year-desc":
-                    return [...participants].sort((p1, p2) => {
-                        const yearA = classes.indexOf(p1.year);
-                        const yearB = classes.indexOf(p2.year);
-                        return yearB - yearA;
-                    });
+                case "team-asc":
+                    return [...group].sort((g1, g2) => g1.teamNum - g2.teamNum);
+                case "team-desc":
+                    return [...group].sort((g1, g2) => g2.teamNum - g1.teamNum);
+                case "project":
+                    return [...group].sort((g1, g2) => g1.projectName.localeCompare(g2.projectName));
                 default:
-                    return participants;
+                    return group;
             }
         }
 
-        async function displayParticipants() {
+        async function displayGroups() {
             const container = document.getElementById("card-container");
             try {
-                container.innerHTML = '<p>Loading participants...</p>';
-                const participants = await getParticipants();
-                const sortedParticipants = sortParticipants(participants);
+                container.innerHTML = '<p>Loading groups...</p>';
+                const groups = await getGroups();
+                const sortedGroups = sortGroups(groups);
                 
                 const cards = `<div class="card-box">
-                    ${sortedParticipants.map(participant => makeCard(participant)).join('')}
+                    ${sortedGroups.map(group => makeCard(group)).join('')}
                 </div>`;
                 
                 container.innerHTML = cards;
             } catch (error) {
-                container.innerHTML = `<p class="error">Error loading participants: ${error.message}</p>`;
+                container.innerHTML = `<p class="error">Error loading groups: ${error.message}</p>`;
             }
         }
 
         window.onload = () => {
-            displayParticipants();
-            document.getElementById("sort-select").addEventListener("change", displayParticipants);
+            displayGroups();
+            document.getElementById("sort-select").addEventListener("change", displayGroups);
         };
     </script>
     <style>
@@ -202,7 +196,7 @@
 
         .card-image {
             width: 100%;
-            height: 20rem;
+            height: auto;
             border-radius: .3rem;
             object-fit: cover;
             object-position: center;
@@ -220,10 +214,10 @@
 <body>
     <div class="filter-bar">
         <select name="sort-select" id="sort-select">
-            <option value="name">Sort by Name</option>
-            <!-- <option value="team">Sort by Team</option> -->
-            <option value="year-asc">Sort by Year (Freshman → Senior)</option>
-            <option value="year-desc">Sort by Year (Senior → Freshman)</option>
+            <!-- update Max Team Number. {ie. (1 -> max) and (max -> 1)}-->
+            <option value="team-asc">Sort by Team Number (1 → 7)</option>
+            <option value="team-desc">Sort by Team Number (7 → 1)</option>
+            <option value="project">Sort by Project Name</option>
         </select>
     </div>
     <div id="card-container"></div>
